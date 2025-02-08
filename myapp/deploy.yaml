@@ -2,41 +2,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: syte-app
+  namespace: syte
   labels:
-    app: myapp
-  name: myapp
-  namespace: monitoring
+    app: web-app
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: myapp
+      app: web-app
   template:
     metadata:
-      namespace: monitoring
       labels:
-        app: myapp
+        app: web-app
     spec:
       containers:
-      - name: myapp
-        image: 12sergey12/myapp:0.0.1
-        ports:
-          - containerPort: 80
-            name: http
-      restartPolicy: Always
+        - name: diplom-test-syte
+          image: teplodizain/savchenko-test-container:0.1
+          resources:
+            requests:
+              cpu: "1"
+              memory: "200Mi"
+            limits:
+              cpu: "2"
+              memory: "400Mi"
+          ports:
+            - containerPort: 80
+
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
-  namespace: monitoring
+  name: syte-service
+  namespace: syte
 spec:
-  selector:
-    app: myapp
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      nodePort: 30080
   type: NodePort
+  selector:
+    app: web-app
+  ports:
+    - protocol: TCP
+      port: 80
+      nodePort: 30155
+
