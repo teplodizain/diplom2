@@ -44,18 +44,3 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_TAG }}:2.3
 
-  deploy:
-    needs: build-and-push
-    name: Deploy to Kubernetes
-    if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Kubernetes
-        uses: azure/setup-kubectl@v1
-        with:
-          version: 'v1.21.0'
-
-
