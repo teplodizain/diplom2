@@ -82,8 +82,7 @@ jobs:
         if: env.DEPLOY == 'false'
        
         run: |
-          sed -i "s|image: teplodizain/savchenko-test-container
-:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
+          sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
         env:
           IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
       
