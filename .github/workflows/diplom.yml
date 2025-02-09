@@ -59,14 +59,14 @@ jobs:
           version: 'v1.21.0'
 
 
-      - name: version from commit messages
-        run: |
-          COMMIT_MESSAGE=$(git log -1 --pretty=format%B)
-          if [[ "$COMMIT_MESSAGE" == v* ]]; then
-            echo "DEPLOY=true" >> $GITHUB_ENV
-          else 
-           echo "DEPLOY=false" >> $GITHUB_ENV
-         fi
+#      - name: version from commit messages
+#        run: |
+#          COMMIT_MESSAGE=$(git log -1 --pretty=format%B)
+#          if [[ "$COMMIT_MESSAGE" == v* ]]; then
+#            echo "DEPLOY=true" >> $GITHUB_ENV
+#          else 
+#           echo "DEPLOY=false" >> $GITHUB_ENV
+#         fi
  
 #      - name: Extract version from commit messages
 #        run: |
