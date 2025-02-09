@@ -78,23 +78,23 @@ jobs:
             exit 1
           fi
 
-#      - name: Replace image tag in deploy.yaml
-#        if: env.DEPLOY == 'false'
-#       
-#        run: |
-#          sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
-#        env:
-#          IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
-#          IMAGE_TAG: teplodizain/savchenko-test-container:2.3
-      
-      - name: Create kubeconfig
+      - name: Replace image tag in deploy.yaml
+        if: env.DEPLOY == 'false'
+       
         run: |
-          mkdir -p $HOME/.kube/
-      - name: Authenticate to Kubernetes cluster
+          sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        run: |
-          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
-      - name: Apply Kubernetes manifests
-        run: |
-          kubectl apply -f ./myapp/deploy.yaml 
+          IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
+          IMAGE_TAG: teplodizain/savchenko-test-container:2.3
+      
+#      - name: Create kubeconfig
+#        run: |
+#          mkdir -p $HOME/.kube/
+#      - name: Authenticate to Kubernetes cluster
+#        env:
+#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+#        run: |
+#          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
+#      - name: Apply Kubernetes manifests
+#        run: |
+#          kubectl apply -f ./myapp/deploy.yaml 
