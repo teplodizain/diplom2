@@ -86,6 +86,7 @@ jobs:
         env:
           IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
           IMAGE_TAG: teplodizain/savchenko-test-container:2.3
+
       
 #      - name: Create kubeconfig
 #        run: |
