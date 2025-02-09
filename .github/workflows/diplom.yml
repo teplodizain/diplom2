@@ -68,24 +68,24 @@ jobs:
 #           echo "DEPLOY=false" >> $GITHUB_ENV
 #         fi
  
-#      - name: Extract version from commit messages
-#        run: |
-#          VERSION=$(git log -1 --pretty=format:%B)
-#          if [[ ! -z "$VERSION" ]]; then
-#            echo "VERSION=$VERSION" >> $GITHUB_ENV
-#          else
-#            echo "No version found in the commit message"
-#            exit 1
-#          fi
-
-      - name: Replace image tag in deploy.yaml
-        if: env.DEPLOY == 'false'
-       
+      - name: Extract version from commit messages
         run: |
-          sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
-        env:
+          VERSION=$(git log -1 --pretty=format:%B)
+          if [[ ! -z "$VERSION" ]]; then
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+          else
+            echo "No version found in the commit message"
+            exit 1
+          fi
+
+#      - name: Replace image tag in deploy.yaml
+#        if: env.DEPLOY == 'false'
+#       
+#        run: |
+#          sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
+#        env:
 #          IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
-          IMAGE_TAG: teplodizain/savchenko-test-container:2.3
+#          IMAGE_TAG: teplodizain/savchenko-test-container:2.3
       
       - name: Create kubeconfig
         run: |
