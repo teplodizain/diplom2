@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: syte-app
-  namespace: syte
+#  namespace: syte
   labels:
     app: web-app
 spec:
@@ -35,7 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: syte-service
-  namespace: syte
+#  namespace: syte
 spec:
   type: NodePort
   selector:
