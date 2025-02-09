@@ -98,4 +98,4 @@ jobs:
           echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
       - name: Apply Kubernetes manifests
         run: |
-#          kubectl apply -f ./myapp/deploy.yaml 
+          kubectl apply -f ./myapp/deploy.yaml 
