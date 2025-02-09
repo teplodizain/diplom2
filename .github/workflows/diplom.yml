@@ -84,7 +84,8 @@ jobs:
         run: |
           sed -i "s|image: teplodizain/savchenko-test-container:.*|image: ${{ env.IMAGE_TAG }}|" ./myapp/deploy.yaml
         env:
-          IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
+#          IMAGE_TAG: teplodizain/savchenko-test-container:${{ env.VERSION }}
+          IMAGE_TAG: teplodizain/savchenko-test-container:2.3
       
       - name: Create kubeconfig
         run: |
