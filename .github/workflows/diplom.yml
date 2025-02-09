@@ -99,4 +99,3 @@ jobs:
       - name: Apply Kubernetes manifests
         run: |
 #          kubectl apply -f ./myapp/deploy.yaml 
-          kubectl get ns
