@@ -95,8 +95,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         run: |
-#          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
-          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ~/.kube/config
+          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f ./myapp/deploy.yaml 
+#          kubectl apply -f ./myapp/deploy.yaml 
