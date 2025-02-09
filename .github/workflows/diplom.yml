@@ -91,11 +91,11 @@ jobs:
       - name: Create kubeconfig
         run: |
           mkdir -p $HOME/.kube/
-      - name: Authenticate to Kubernetes cluster
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        run: |
-          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
-#      - name: Apply Kubernetes manifests
+#      - name: Authenticate to Kubernetes cluster
+#        env:
+#          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
 #        run: |
-#          kubectl apply -f ./myapp/deploy.yaml 
+#          echo "${KUBE_CONFIG_DATA}" | base64 --decode > ${HOME}/.kube/config
+      - name: Apply Kubernetes manifests
+        run: |
+          kubectl apply -f ./myapp/deploy.yaml 
