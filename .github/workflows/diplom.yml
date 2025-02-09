@@ -59,24 +59,24 @@ jobs:
           version: 'v1.21.0'
 
 
-#      - name: version from commit messages
-#        run: |
-#          COMMIT_MESSAGE=$(git log -1 --pretty=format%B)
-#          if [[ "$COMMIT_MESSAGE" == v* ]]; then
-#            echo "DEPLOY=true" >> $GITHUB_ENV
-#          else 
-#           echo "DEPLOY=false" >> $GITHUB_ENV
-#          fi
- 
-      - name: Extract version from commit messages
+      - name: version from commit messages
         run: |
-          VERSION=$(git log -1 --pretty=format:%B)
-          if [[ ! -z "$VERSION" ]]; then
-            echo "VERSION=$VERSION" >> $GITHUB_ENV
-          else
-            echo "No version found in the commit message"
-            exit 1
-          fi
+          COMMIT_MESSAGE=$(git log -1 --pretty=format%B)
+          if [[ "$COMMIT_MESSAGE" == v* ]]; then
+            echo "DEPLOY=true" >> $GITHUB_ENV
+          else 
+           echo "DEPLOY=false" >> $GITHUB_ENV
+         fi
+ 
+#      - name: Extract version from commit messages
+#        run: |
+#          VERSION=$(git log -1 --pretty=format:%B)
+#          if [[ ! -z "$VERSION" ]]; then
+#            echo "VERSION=$VERSION" >> $GITHUB_ENV
+#          else
+#            echo "No version found in the commit message"
+#            exit 1
+#          fi
 
       - name: Replace image tag in deploy.yaml
         if: env.DEPLOY == 'false'
