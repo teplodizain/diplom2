@@ -8,7 +8,7 @@ on:
 env:
   IMAGE_TAG: teplodizain/savchenko-test-container
   RELEASE_NAME: myapp
-  NAMESPACE: monitoring
+  NAMESPACE: syte
 
 jobs:
   build-and-push:
