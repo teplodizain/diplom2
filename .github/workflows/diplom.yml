@@ -15,8 +15,13 @@ jobs:
     name: Build Docker image
     runs-on: ubuntu-latest
     steps:
+    
+# действие позволяет получить доступ к коду из репозитория в контексте рабочего процесса.
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 
+        
+# автоматизирует процесс входа в реестр Docker. 
+#Это позволяет аутентифицировать операции с Docker без ручного ввода учётных данных каждый раз
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -35,14 +40,15 @@ jobs:
             echo "No version found in the commit message"
             exit 1
           fi
-
+          
+# автоматизирует сборку и push Docker-образов
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ env.IMAGE_TAG }}:2.4
+          tags: ${{ env.IMAGE_TAG }}:${{ env.VERSION }}
 
   deploy:
     needs: build-and-push
@@ -50,24 +56,17 @@ jobs:
     if: startsWith(github.ref, 'refs/heads/main') || startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
+#  выкачивает репозиторий и встаёт на нужный коммит
       - name: Checkout code
         uses: actions/checkout@v2
 
+# устанавливает определённую версию kubectl в средстве выполнения
       - name: Set up Kubernetes
         uses: azure/setup-kubectl@v1
         with:
           version: 'v1.21.0'
 
-
-#      - name: version from commit messages
-#        run: |
-#          COMMIT_MESSAGE=$(git log -1 --pretty=format%B)
-#          if [[ "$COMMIT_MESSAGE" == v* ]]; then
-#            echo "DEPLOY=true" >> $GITHUB_ENV
-#          else 
-#           echo "DEPLOY=false" >> $GITHUB_ENV
-#         fi
- 
+# Извлекать версию из сообщений о фиксации
       - name: Extract version from commit messages
         run: |
           VERSION=$(git log -1 --pretty=format:%B)
@@ -77,7 +76,8 @@ jobs:
             echo "No version found in the commit message"
             exit 1
           fi
-
+          
+# Замените тег изображения в файле deploy.yaml
       - name: Replace image tag in deploy.yaml
         if: env.DEPLOY == 'false'
        
