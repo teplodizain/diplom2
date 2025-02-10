@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: diplom-test-syte
-          image: teplodizain/savchenko-test-container:0.1
+          image: teplodizain/savchenko-test-container:2.5
           resources:
             requests:
               cpu: "1"
